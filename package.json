@@ -1,0 +1,19 @@
+{
+  "name": "myfirsyexpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "firebase-admin": "^11.8.0",
+    "highcharts": "^10.3.2",
+    "node-chartist": "^1.0.5",
+    "node-fetch": "^2.6.8"
+  }
+}
