@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const fetch = require("node-fetch");
 const app = express();
 const generate = require('node-chartist');
@@ -6,6 +7,8 @@ const port = 8080;
 var http = require("http");
 // const { engine } = require("express-handlebars");
 const expressHandlebars = require('express-handlebars')
+// Parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "handlebars");
 // app.engine("handlebars", engine());
 
@@ -96,15 +99,41 @@ app.get('/',(req,res)=>{
 //   res.render('add');
 // })
 app.get('/add', (req, res) => {
-  const { account, password } = req.query;
+  res.render('add')
+  // const { account, password } = req.query;
+  // if (!account || !password) {
+  //   return res.status(400).json({ error: 'Missing account or password in the request body' });
+  // }
+  // // Perform any necessary processing or validation with the received parameters
+
+  // // Example response data
+
+  // const responseData ={
+  //   [account]: {
+  //     role: 0,
+  //     account: account,
+  //     password: password,
+  //   },
+  // };
+
+  // ref.set(responseData)
+  // .then(() => {
+  //   console.log('Data written successfully.');
+  // })
+  // .catch((error) => {
+  //   console.error('Error writing data:', error);
+  // });
+  // res.json(responseData);
+});
+app.post('/add', (req, res) => {
+  const { account, password } = req.body;
+  
   if (!account || !password) {
     return res.status(400).json({ error: 'Missing account or password in the request body' });
   }
-  // Perform any necessary processing or validation with the received parameters
 
-  // Example response data
-
-  const responseData ={
+  // Example data to be added
+  const newData = {
     [account]: {
       role: 0,
       account: account,
@@ -112,15 +141,18 @@ app.get('/add', (req, res) => {
     },
   };
 
-  ref.set(responseData)
-  .then(() => {
-    console.log('Data written successfully.');
-  })
-  .catch((error) => {
-    console.error('Error writing data:', error);
-  });
-  res.json(responseData);
+  // Update the database with the new data
+  ref.update(newData)
+    .then(() => {
+      console.log('Data updated successfully.');
+      res.json(newData);
+    })
+    .catch((error) => {
+      console.error('Error updating data:', error);
+      res.status(500).json({ error: 'Failed to update data' });
+    });
 });
+
 
 // app.post("/", (req, res) => {
 //   // geturl('https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&apikey=9I9TEYBJGPTSE73G')
