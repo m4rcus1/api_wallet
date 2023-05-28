@@ -2,10 +2,15 @@
   "name": "myfirsyexpress",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm-run-all clean build:*",
+    "build:clean": "rimraf dist",
+    "build:transpile": "babel src -d dist",
+    "build:optimize": "webpack --config webpack.config.js",
+    "clean": "rimraf dist",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
