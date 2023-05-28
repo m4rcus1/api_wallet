@@ -128,9 +128,9 @@ app.get('/add', (req, res) => {
 app.post('/add', (req, res) => {
   const { account, password } = req.body;
   
-  if (!account || !password) {
-    return res.status(400).json({ error: 'Missing account or password in the request body' });
-  }
+  // if (!account || !password) {
+  //   return res.status(400).json({ error: 'Missing account or password in the request body' });
+  // }
 
   // Example data to be added
   const newData = {
