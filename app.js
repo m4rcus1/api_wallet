@@ -1,7 +1,6 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const app = express();
-
 const generate = require('node-chartist');
 const port = 8080;
 var http = require("http");
@@ -9,6 +8,20 @@ var http = require("http");
 const expressHandlebars = require('express-handlebars')
 app.set("view engine", "handlebars");
 // app.engine("handlebars", engine());
+
+// Enable CORS middleware
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Replace "*" with your desired origin or whitelist of origins
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
 app.set("views", "./views");
 app.engine('handlebars', expressHandlebars.engine({
   defaultLayout: 'main',
