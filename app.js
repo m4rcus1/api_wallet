@@ -71,6 +71,7 @@ app.get('/',(req,res)=>{
 
       // Send the data as a JSON response
       res.json(data);
+      res.end();
     })
     .catch((error) => {
       console.error('Error reading data:', error);
